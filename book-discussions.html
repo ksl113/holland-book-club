@@ -1,5 +1,4 @@
 <!-- book-discussions.html -->
-<!-- book-discussions.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +26,7 @@
         <h2>Join the Discussion</h2>
         <label for="chapter-select">Select Chapter:</label>
         <select id="chapter-select">
+            <!-- Generate 40 chapters dynamically -->
             <script>
                 for (let i = 1; i <= 39; i++) {
                     document.write(`<option value="${i}">Chapter ${i}</option>`);
@@ -35,15 +35,22 @@
             </script>
         </select>
         
+        <button id="clear-comments">Clear All Comments</button>
+        <button id="clear-chapter-comments">Clear Chapter Comments</button>
+
         <form id="comment-form">
             <input type="text" id="username" placeholder="Your Name" required>
             <textarea id="comment" placeholder="Write your comment..." required></textarea>
             <button type="submit">Submit</button>
-            <button id="clear-comments" class="clear-btn">Clear All Comments</button>
         </form>
 
         <h3>Comments for Selected Chapter</h3>
         <div id="comments-container"></div>
+    </section>
+
+    <section id="all-comments">
+        <h2>All Comments</h2>
+        <div id="all-comments-container"></div>
     </section>
 
     <script src="js/discussion.js"></script>
