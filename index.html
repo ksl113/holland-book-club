@@ -1,50 +1,43 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Club</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Book Club - Home</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
         <h1>Welcome to Our Book Club</h1>
         <nav>
             <ul>
-                <li><a href="#calendar">Calendar</a></li>
-                <li><a href="#discussion">Chapter Discussions</a></li>
-                <li><a href="#submit">Submit a Book</a></li>
-                <li><a href="#vote">Vote</a></li>
+                <li><a href="calendar.html">📅 Calendar</a></li>
+                <li><a href="discussion.html">📖 Current Book Discussions</a></li>
+                <li><a href="submit.html">📚 Submit a Book</a></li>
+                <li><a href="vote.html">🗳 Vote</a></li>
             </ul>
         </nav>
     </header>
-    
-    <section id="calendar">
-        <h2>Upcoming Meetings</h2>
-        <div id="calendar-container"></div>
+
+    <section id="intro">
+        <h2>Join Our Book Club</h2>
+        <p>Welcome to our family book club! We read, discuss, and vote on books together. Choose an option below to get started:</p>
     </section>
 
-    <section id="discussion">
-        <h2>Chapter Discussions</h2>
-        <div id="discussion-container"></div>
-    </section>
-
-    <section id="submit">
-        <h2>Submit a Book</h2>
-        <form id="submit-book-form">
-            <input type="text" id="book-title" placeholder="Book Title" required>
-            <input type="text" id="book-author" placeholder="Author" required>
-            <textarea id="book-reason" placeholder="Why should we read this?" required></textarea>
-            <button type="submit">Submit</button>
-        </form>
-    </section>
-    
-    <section id="vote">
-        <h2>Vote for the Next Book</h2>
-        <div id="vote-container"></div>
-    </section>
-
-    <script src="script.js"></script>
-</body>
-</html>
+    <section id="features">
+        <div class="feature">
+            <h3><a href="calendar.html">📅 View Upcoming Meetings</a></h3>
+            <p>See our reading schedule and book club meeting dates.</p>
+        </div>
+        <div class="feature">
+            <h3><a href="discussion.html">📖 Join the Discussion</a></h3>
+            <p>Talk about individual chapters with fellow members.</p>
+        </div>
+        <div class="feature">
+            <h3><a href="submit.html">📚 Submit a Book</a></h3>
+            <p>Recommend a book for our next read.</p>
+        </div>
+        <div class="feature">
+            <h3><a href="vote.html">🗳 Vote for the Next Book</a></h3>
+            <p>Help decide what book we read next.</p>
+        </div>
