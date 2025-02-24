@@ -19,11 +19,17 @@
     padding: 10px;
     text-align: center;
     width: 14%;
+    position: relative;
 }
 
 .calendar th {
     background-color: #333;
     color: white;
+}
+
+.today {
+    background-color: #c8f7c5 !important;
+    font-weight: bold;
 }
 
 .event {
