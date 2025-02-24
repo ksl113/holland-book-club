@@ -1,0 +1,35 @@
+<!-- submit.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit a Book Recommendation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Submit a Book Recommendation</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="discussion.html">Chapter Discussions</a></li>
+                <li><a href="vote.html">Vote</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="submit">
+        <h2>Submit a Book for Consideration</h2>
+        <form id="submit-book-form">
+            <input type="text" id="book-title" placeholder="Book Title" required>
+            <input type="text" id="book-author" placeholder="Author" required>
+            <textarea id="book-reason" placeholder="Why should we read this?" required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+    
+    <script src="script.js"></script>
+</body>
+</html>
