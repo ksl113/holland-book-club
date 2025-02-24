@@ -21,7 +21,7 @@
     text-align: center;
     width: 14.28%;
     height: 80px;
-    vertical-align: top;
+    vertical-align: middle;
     position: relative;
     overflow: hidden;
 }
@@ -37,12 +37,10 @@
 }
 
 .event {
-    background-color: #ffeb3b;
-    padding: 3px;
-    margin-top: 2px;
-    border-radius: 3px;
-    font-size: 0.8em;
-    word-wrap: break-word;
-    overflow: hidden;
-    max-height: 40px;
+    font-size: 2em; /* Makes the star larger */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
 }
