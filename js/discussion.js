@@ -2,18 +2,21 @@
 document.addEventListener("DOMContentLoaded", () => {
     const commentForm = document.getElementById("comment-form");
     const commentsContainer = document.getElementById("comments-container");
+    const chapterSelect = document.getElementById("chapter-select");
 
     // Load existing comments from local storage
-    let comments = JSON.parse(localStorage.getItem("comments")) || [];
+    let commentsByChapter = JSON.parse(localStorage.getItem("commentsByChapter")) || {};
 
-    function renderComments() {
+    function renderComments(chapter) {
         commentsContainer.innerHTML = "";
-        comments.forEach((comment, index) => {
+        if (!commentsByChapter[chapter]) return;
+
+        commentsByChapter[chapter].forEach((comment, index) => {
             const commentDiv = document.createElement("div");
             commentDiv.classList.add("comment");
             commentDiv.innerHTML = `
                 <strong>${comment.username}</strong>: ${comment.text}
-                <button class="reply-btn" data-index="${index}">Reply</button>
+                <button class="reply-btn" data-chapter="${chapter}" data-index="${index}">Reply</button>
                 <div class="replies"></div>
             `;
 
@@ -34,28 +37,37 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         const username = document.getElementById("username").value;
         const commentText = document.getElementById("comment").value;
+        const chapter = chapterSelect.value;
 
-        if (username.trim() && commentText.trim()) {
-            comments.push({ username, text: commentText, replies: [] });
-            localStorage.setItem("comments", JSON.stringify(comments));
-            renderComments();
-            commentForm.reset();
+        if (!commentsByChapter[chapter]) {
+            commentsByChapter[chapter] = [];
         }
+
+        commentsByChapter[chapter].push({ username, text: commentText, replies: [] });
+        localStorage.setItem("commentsByChapter", JSON.stringify(commentsByChapter));
+
+        renderComments(chapter);
+        commentForm.reset();
     });
 
     commentsContainer.addEventListener("click", (e) => {
         if (e.target.classList.contains("reply-btn")) {
+            const chapter = e.target.getAttribute("data-chapter");
             const index = e.target.getAttribute("data-index");
             const replyUsername = prompt("Enter your name:");
             const replyText = prompt("Enter your reply:");
 
             if (replyUsername && replyText) {
-                comments[index].replies.push({ username: replyUsername, text: replyText });
-                localStorage.setItem("comments", JSON.stringify(comments));
-                renderComments();
+                commentsByChapter[chapter][index].replies.push({ username: replyUsername, text: replyText });
+                localStorage.setItem("commentsByChapter", JSON.stringify(commentsByChapter));
+                renderComments(chapter);
             }
         }
     });
 
-    renderComments();
+    chapterSelect.addEventListener("change", () => {
+        renderComments(chapterSelect.value);
+    });
+
+    renderComments(chapterSelect.value);
 });
