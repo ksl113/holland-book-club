@@ -1,0 +1,30 @@
+<!-- calendar.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Club Calendar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Book Club Calendar</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="discussion.html">Chapter Discussions</a></li>
+                <li><a href="submit.html">Submit a Book</a></li>
+                <li><a href="vote.html">Vote</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="calendar">
+        <h2>Upcoming Meetings</h2>
+        <div id="calendar-container"></div>
+    </section>
+    
+    <script src="script.js"></script>
+</body>
+</html>
