@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const commentForm = document.getElementById("comment-form");
     const commentsContainer = document.getElementById("comments-container");
     const chapterSelect = document.getElementById("chapter-select");
-    const clearCommentsButton = document.getElementById("clear-comments");
 
     // Load existing comments from local storage
     let commentsByChapter = JSON.parse(localStorage.getItem("commentsByChapter")) || {};
@@ -17,7 +16,19 @@ document.addEventListener("DOMContentLoaded", () => {
             commentDiv.classList.add("comment");
             commentDiv.innerHTML = `
                 <strong>${comment.username}</strong>: ${comment.text}
+                <button class="reply-btn" data-chapter="${chapter}" data-index="${index}">Reply</button>
+                <div class="replies"></div>
             `;
+
+            // Add replies
+            const repliesDiv = commentDiv.querySelector(".replies");
+            comment.replies.forEach(reply => {
+                const replyDiv = document.createElement("div");
+                replyDiv.classList.add("reply");
+                replyDiv.innerHTML = `<strong>${reply.username}</strong>: ${reply.text}`;
+                repliesDiv.appendChild(replyDiv);
+            });
+
             commentsContainer.appendChild(commentDiv);
         });
     }
@@ -32,18 +43,25 @@ document.addEventListener("DOMContentLoaded", () => {
             commentsByChapter[chapter] = [];
         }
 
-        commentsByChapter[chapter].push({ username, text: commentText });
+        commentsByChapter[chapter].push({ username, text: commentText, replies: [] });
         localStorage.setItem("commentsByChapter", JSON.stringify(commentsByChapter));
 
         renderComments(chapter);
         commentForm.reset();
     });
 
-    clearCommentsButton.addEventListener("click", () => {
-        if (confirm("Are you sure you want to delete all comments? This cannot be undone.")) {
-            localStorage.removeItem("commentsByChapter");
-            commentsByChapter = {};
-            renderComments(chapterSelect.value);
+    commentsContainer.addEventListener("click", (e) => {
+        if (e.target.classList.contains("reply-btn")) {
+            const chapter = e.target.getAttribute("data-chapter");
+            const index = e.target.getAttribute("data-index");
+            const replyUsername = prompt("Enter your name:");
+            const replyText = prompt("Enter your reply:");
+
+            if (replyUsername && replyText) {
+                commentsByChapter[chapter][index].replies.push({ username: replyUsername, text: replyText });
+                localStorage.setItem("commentsByChapter", JSON.stringify(commentsByChapter));
+                renderComments(chapter);
+            }
         }
     });
 
@@ -53,4 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderComments(chapterSelect.value);
 });
-
+document.getElementById("clear-comments").addEventListener("click", () => {
+    if (confirm("Are you sure you want to delete all comments? This cannot be undone.")) {
+        localStorage.removeItem("commentsByChapter");
+        commentsByChapter = {};
+        renderComments(chapterSelect.value);
+    }
+});
