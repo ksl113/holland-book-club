@@ -3,19 +3,22 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
+    background-color: #EAEAEA;
+    color: #4F6D7A;
 }
 
 /* Header & Navigation */
 header {
-    background-color: #333;
-    color: white;
-    padding: 15px;
+    background-color: #4F6D7A;
+    color: #E8DAB2;
+    padding: 20px;
     text-align: center;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 nav {
-    background-color: #333;
+    background-color: #C0D6DF;
     padding: 10px 0;
     text-align: center;
 }
@@ -24,35 +27,39 @@ nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 nav ul li {
-    display: inline;
-    margin: 0 15px;
+    margin: 5px 15px;
 }
 
 nav ul li a {
-    color: white;
+    color: #4F6D7A;
     text-decoration: none;
     font-weight: bold;
     font-size: 18px;
     padding: 10px 15px;
     transition: background 0.3s ease-in-out;
+    display: inline-block;
+    background-color: #E8DAB2;
+    border-radius: 5px;
 }
 
 nav ul li a:hover {
-    background-color: #555;
-    border-radius: 5px;
+    background-color: #DD6E42;
+    color: white;
 }
 
 /* Sections & Features */
 section {
     padding: 20px;
     margin: 20px;
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #E8DAB2;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .feature {
@@ -71,7 +78,7 @@ section {
 
 /* Footer */
 footer {
-    background-color: #222;
+    background-color: #4F6D7A;
     color: white;
     text-align: center;
     padding: 10px;
@@ -83,8 +90,8 @@ footer {
     text-align: center;
     margin: 20px;
     padding: 20px;
-    background-color: white;
-    border-radius: 5px;
+    background-color: #C0D6DF;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -96,6 +103,7 @@ footer {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 /* Ensure Navigation is Responsive */
 nav ul {
     display: flex;
