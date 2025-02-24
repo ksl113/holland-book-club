@@ -6,14 +6,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const today = new Date();
         const month = today.getMonth();
         const year = today.getFullYear();
+        const currentDate = today.getDate();
         
         const firstDay = new Date(year, month, 1).getDay();
         const daysInMonth = new Date(year, month + 1, 0).getDate();
         
         const events = {
-            "2025-03-10": "March Meeting - Discuss Chapters 1-5",
-            "2025-04-14": "April Meeting - Discuss Chapters 6-10",
-            "2025-05-12": "May Meeting - Final Discussion"
+            "2025-02-16": "First Meeting - Discuss Chapters 1-13",
+            "2025-02-28": "Second Meeting - Discuss Chapters 14-22",
         };
         
         let calendarHTML = `<table class='calendar'>`;
@@ -29,9 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else if (date > daysInMonth) {
                     break;
                 } else {
-                    let currentDate = `${year}-${(month + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`;
-                    let eventText = events[currentDate] ? `<div class='event'>${events[currentDate]}</div>` : "";
-                    calendarHTML += `<td>${date}${eventText}</td>`;
+                    let formattedDate = `${year}-${(month + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`;
+                    let isToday = date === currentDate ? "today" : "";
+                    let eventText = events[formattedDate] ? `<div class='event'>⭐ ${events[formattedDate]}</div>` : "";
+                    calendarHTML += `<td class='${isToday}'>${date}${eventText}</td>`;
                     date++;
                 }
             }
@@ -44,4 +45,3 @@ document.addEventListener("DOMContentLoaded", () => {
     
     generateCalendar();
 });
-
