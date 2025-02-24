@@ -1,47 +1,38 @@
-/* Calendar Styles */
-#calendar-container {
-    background: #E8DAB2;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.calendar {
+/* Chapter Selection */
+#chapter-select {
     width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-}
-
-.calendar th, .calendar td {
-    border: 1px solid #4F6D7A;
     padding: 10px;
-    text-align: center;
-    width: 14.28%;
-    height: 80px;
-    vertical-align: middle;
-    position: relative;
-    overflow: hidden;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #4F6D7A;
 }
 
-.calendar th {
+/* Comment Section */
+.comment {
+    background-color: #fff;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.reply {
+    background-color: #C0D6DF;
+    padding: 5px;
+    margin-left: 20px;
+    border-radius: 5px;
+}
+
+.reply-btn {
+    margin-left: 10px;
     background-color: #4F6D7A;
-    color: #E8DAB2;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
-.today {
-    background-color: #C0D6DF !important;
-    font-weight: bold;
-}
-
-.event {
-    font-size: 2em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    color: #DD6E42;
+.reply-btn:hover {
+    background-color: #DD6E42;
 }
