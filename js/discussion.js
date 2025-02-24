@@ -71,3 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderComments(chapterSelect.value);
 });
+document.getElementById("clear-comments").addEventListener("click", () => {
+    if (confirm("Are you sure you want to delete all comments? This cannot be undone.")) {
+        localStorage.removeItem("commentsByChapter");
+        commentsByChapter = {};
+        renderComments(chapterSelect.value);
+    }
+});
