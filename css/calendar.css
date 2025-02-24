@@ -1,5 +1,5 @@
 /* Chapter Selection */
-#chapter-select {
+#chapter-select, #username, #comment {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -21,16 +21,25 @@
     background-color: #888; /* Gray color */
     color: white;
     border: none;
-    padding: 8px;
-    font-size: 14px;
+    padding: 6px 12px;
+    font-size: 12px;
     cursor: pointer;
     border-radius: 5px;
     display: block;
-    margin: 10px auto 0; /* Center the button and add spacing */
+    margin: 20px auto 0; /* More spacing from submit button */
     width: fit-content;
+    text-align: center;
 }
 
 .clear-btn:hover {
     background-color: #666; /* Darker gray on hover */
 }
 
+/* Ensure input fields match the chapter select dropdown width */
+#comment-form input, #comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #4F6D7A;
+}
