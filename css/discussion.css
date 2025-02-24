@@ -1,0 +1,59 @@
+/* Discussion Page Styles */
+#discussion {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #E8DAB2;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#comment-form input, #comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #4F6D7A;
+}
+
+button {
+    background-color: #DD6E42;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #C0D6DF;
+}
+
+.comment {
+    background-color: #fff;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.reply {
+    background-color: #C0D6DF;
+    padding: 5px;
+    margin-left: 20px;
+    border-radius: 5px;
+}
+
+.reply-btn {
+    margin-left: 10px;
+    background-color: #4F6D7A;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.reply-btn:hover {
+    background-color: #DD6E42;
+}
