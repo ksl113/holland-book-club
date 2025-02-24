@@ -16,23 +16,21 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.reply {
-    background-color: #C0D6DF;
-    padding: 5px;
-    margin-left: 20px;
-    border-radius: 5px;
-}
-
-.reply-btn {
-    margin-left: 10px;
-    background-color: #4F6D7A;
+/* Clear Comments Button */
+.clear-btn {
+    background-color: #888; /* Gray color */
     color: white;
     border: none;
-    padding: 5px;
+    padding: 8px;
+    font-size: 14px;
     cursor: pointer;
     border-radius: 5px;
+    display: block;
+    margin: 10px auto 0; /* Center the button and add spacing */
+    width: fit-content;
 }
 
-.reply-btn:hover {
-    background-color: #DD6E42;
+.clear-btn:hover {
+    background-color: #666; /* Darker gray on hover */
 }
+
