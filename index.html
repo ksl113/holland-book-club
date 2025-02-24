@@ -1,46 +1,50 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Holland Family Book Club Website</title>
+    <title>Book Club</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Holland Family Book Club</h1>
+        <h1>Welcome to Our Book Club</h1>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="current-book.html">Current Book</a></li>
-                <li><a href="calendar.html">Calendar</a></li>
-                <li><a href="suggestions.html">Book Suggestions</a></li>
-                <li><a href="about.html">About</a></li>
+                <li><a href="#calendar">Calendar</a></li>
+                <li><a href="#discussion">Chapter Discussions</a></li>
+                <li><a href="#submit">Submit a Book</a></li>
+                <li><a href="#vote">Vote</a></li>
             </ul>
         </nav>
     </header>
     
-    <main>
-        <section class="welcome">
-            <h2>Welcome to Our Book Club!</h2>
-            <p>Join us as we explore exciting books together.</p>
-        </section>
-        
-        <section class="current-book">
-            <h2>Current Book</h2>
-            <div class="book-info">
-                <!-- Book information will go here -->
-            </div>
-        </section>
-        
-        <section class="upcoming-meetings">
-            <h2>Upcoming Meetings</h2>
-            <!-- Calendar preview will go here -->
-        </section>
-    </main>
+    <section id="calendar">
+        <h2>Upcoming Meetings</h2>
+        <div id="calendar-container"></div>
+    </section>
+
+    <section id="discussion">
+        <h2>Chapter Discussions</h2>
+        <div id="discussion-container"></div>
+    </section>
+
+    <section id="submit">
+        <h2>Submit a Book</h2>
+        <form id="submit-book-form">
+            <input type="text" id="book-title" placeholder="Book Title" required>
+            <input type="text" id="book-author" placeholder="Author" required>
+            <textarea id="book-reason" placeholder="Why should we read this?" required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
     
-    <footer>
-        <p>&copy; 2025 Our Book Club. All rights reserved.</p>
-    </footer>
+    <section id="vote">
+        <h2>Vote for the Next Book</h2>
+        <div id="vote-container"></div>
+    </section>
+
+    <script src="script.js"></script>
 </body>
 </html>
