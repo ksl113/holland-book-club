@@ -1,43 +1,101 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Club - Home</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Book Club</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <h1>Welcome to Our Book Club</h1>
         <nav>
             <ul>
-                <li><a href="calendar.html">📅 Calendar</a></li>
-                <li><a href="discussion.html">📖 Current Book Discussions</a></li>
-                <li><a href="submit.html">📚 Submit a Book</a></li>
-                <li><a href="vote.html">🗳 Vote</a></li>
+                <li><a href="#calendar">Calendar</a></li>
+                <li><a href="#discussion">Chapter Discussions</a></li>
+                <li><a href="#submit">Submit a Book</a></li>
+                <li><a href="#vote">Vote</a></li>
             </ul>
         </nav>
     </header>
-
-    <section id="intro">
-        <h2>Join Our Book Club</h2>
-        <p>Welcome to our family book club! We read, discuss, and vote on books together. Choose an option below to get started:</p>
+    
+    <section id="calendar">
+        <h2>Upcoming Meetings</h2>
+        <div id="calendar-container"></div>
     </section>
 
-    <section id="features">
-        <div class="feature">
-            <h3><a href="calendar.html">📅 View Upcoming Meetings</a></h3>
-            <p>See our reading schedule and book club meeting dates.</p>
-        </div>
-        <div class="feature">
-            <h3><a href="discussion.html">📖 Join the Discussion</a></h3>
-            <p>Talk about individual chapters with fellow members.</p>
-        </div>
-        <div class="feature">
-            <h3><a href="submit.html">📚 Submit a Book</a></h3>
-            <p>Recommend a book for our next read.</p>
-        </div>
-        <div class="feature">
-            <h3><a href="vote.html">🗳 Vote for the Next Book</a></h3>
-            <p>Help decide what book we read next.</p>
-        </div>
+    <section id="current-book">
+        <h2>📖 Current Book: <span id="book-title">Loading...</span></h2>
+        <p><strong>Author:</strong> <span id="book-author">Loading...</span></p>
+        <p><strong>Summary:</strong> <span id="book-summary">Loading...</span></p>
+    </section>
+ 
+    <section id="discussion">
+        <h2>Chapter Discussions</h2>
+        <div id="discussion-container"></div>
+    </section>
+
+    <section id="submit">
+        <h2>Submit a Book</h2>
+        <form id="submit-book-form">
+            <input type="text" id="book-title" placeholder="Book Title" required>
+            <input type="text" id="book-author" placeholder="Author" required>
+            <textarea id="book-reason" placeholder="Why should we read this?" required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+    
+    <section id="vote">
+        <h2>Vote for the Next Book</h2>
+        <div id="vote-container"></div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+/* style.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+header {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+section {
+    padding: 20px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* script.js */
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("submit-book-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const title = document.getElementById("book-title").value;
+        const author = document.getElementById("book-author").value;
+        const reason = document.getElementById("book-reason").value;
+        alert(`Book Submitted:\nTitle: ${title}\nAuthor: ${author}\nReason: ${reason}`);
+        this.reset();
+    });
+});
