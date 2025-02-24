@@ -17,12 +17,14 @@
 }
 
 button {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    border-radius: 5px;
     background-color: #DD6E42;
     color: white;
     border: none;
-    padding: 10px;
     cursor: pointer;
-    border-radius: 5px;
 }
 
 button:hover {
@@ -56,4 +58,16 @@ button:hover {
 
 .reply-btn:hover {
     background-color: #DD6E42;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+#chapter-select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #4F6D7A;
 }
