@@ -1,0 +1,30 @@
+<!-- discussion.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter Discussions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Chapter Discussions</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="submit.html">Submit a Book</a></li>
+                <li><a href="vote.html">Vote</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="discussion">
+        <h2>Discuss Chapters</h2>
+        <div id="discussion-container"></div>
+    </section>
+    
+    <script src="script.js"></script>
+</body>
+</html>
