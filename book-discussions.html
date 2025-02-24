@@ -23,10 +23,17 @@
     </header>
     
     <section id="discussion">
-        <h2>Discuss Chapters</h2>
-        <div id="discussion-container"></div>
+        <h2>Join the Discussion</h2>
+        <form id="comment-form">
+            <input type="text" id="username" placeholder="Your Name" required>
+            <textarea id="comment" placeholder="Write your comment..." required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+
+        <h3>Comments</h3>
+        <div id="comments-container"></div>
     </section>
-    
-    <script src="script.js"></script>
+
+    <script src="js/discussion.js"></script>
 </body>
 </html>
