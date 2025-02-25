@@ -43,20 +43,31 @@
         <div id="comments-container"></div>
     </section>
 
-    <script src="js/discussion.js"></script>
+    <!-- 🔥 Add Firebase SDK Before Any Scripts That Use Firebase -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
+      // 🔥 Your Firebase Config
       const firebaseConfig = {
-        apiKey: "AIzaSyCIBVhfogwbIIzYj0rDPPrFMRNANyxOdgU",
-        authDomain: "holland-family-book-club-4776e.firebaseapp.com",
-        projectId: "holland-family-book-club-4776e",
-        storageBucket: "holland-family-book-club-4776e.firebasestorage.app",
-        messagingSenderId: "395034180712",
-        appId: "1:395034180712:web:07c3225a57574e84768fdd"
+        apiKey: "AIzaSyBp1WFEo9UOpDeAJ4BJQzenmnYZJ8Ebq54",
+        authDomain: "holland-family-book-discussion.firebaseapp.com",
+        projectId: "holland-family-book-discussion",
+        storageBucket: "holland-family-book-discussion.firebasestorage.app",
+        messagingSenderId: "866222918096",
+        appId: "1:866222918096:web:9d2df6ecdca3996a1751d5"
       };
 
+      // 🔥 Initialize Firebase
       const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // Export database for use in other scripts
+      export { db };
     </script>
+
+    <!-- 🔥 Your JavaScript Code -->
+    <script src="js/discussion.js" type="module"></script>
+
 </body>
 </html>
