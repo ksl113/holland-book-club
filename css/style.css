@@ -104,6 +104,25 @@ footer {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Next Read Section */
+#next-read {
+    text-align: center;
+    margin: 20px;
+    padding: 20px;
+    background-color: #E9DCB3;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#book-cover {
+    max-width: 150px;
+    height: auto;
+    display: block;
+    margin: 15px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 /* Ensure Navigation is Responsive */
 nav ul {
     display: flex;
