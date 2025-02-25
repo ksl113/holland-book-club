@@ -1,11 +1,10 @@
 import { db } from "./firebase-config.js";  
-import { collection, addDoc, getDocs, onSnapshot, doc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+import { collection, addDoc, getDocs, onSnapshot, doc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const commentForm = document.getElementById("comment-form");
     const commentsContainer = document.getElementById("comments-container");
     const chapterSelect = document.getElementById("chapter-select");
-    const clearCommentsButton = document.getElementById("clear-comments");
 
     // ✅ Fetch comments and display them
     async function fetchComments(chapter) {
@@ -13,11 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
             const querySnapshot = await getDocs(collection(db, "chapters", chapter, "comments"));
-            commentsContainer.innerHTML = "";
+            commentsContainer.innerHTML = ""; // Clear loading text
 
-            querySnapshot.forEach((doc) => {
+            querySnapshot.forEach(async (doc) => {
                 const commentData = doc.data();
-                const commentDiv = createCommentElement(commentData, chapter, doc.id);
+                const commentDiv = await createCommentElement(commentData, chapter, doc.id);
                 commentsContainer.appendChild(commentDiv);
             });
 
@@ -26,8 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // ✅ Function to create a comment element (supports nested replies)
-    function createCommentElement(comment, chapter, commentId, parentId = null) {
+    // ✅ Function to create a comment element and fetch replies dynamically
+    async function createCommentElement(comment, chapter, commentId, parentId = null) {
         const commentDiv = document.createElement("div");
         commentDiv.classList.add("comment");
         commentDiv.innerHTML = `
@@ -38,17 +37,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const repliesDiv = commentDiv.querySelector(".replies");
 
-        if (comment.replies && comment.replies.length > 0) {
-            comment.replies.forEach((reply, index) => {
-                const replyDiv = createCommentElement(reply, chapter, `${commentId}-${index}`, commentId);
+        // Fetch replies dynamically from Firestore (instead of using an array)
+        try {
+            const repliesSnapshot = await getDocs(collection(db, "chapters", chapter, "comments", commentId, "replies"));
+            repliesSnapshot.forEach(async (replyDoc) => {
+                const replyData = replyDoc.data();
+                const replyDiv = await createCommentElement(replyData, chapter, replyDoc.id, commentId);
                 repliesDiv.appendChild(replyDiv);
             });
+        } catch (error) {
+            console.error("❌ Error fetching replies:", error);
         }
 
         return commentDiv;
     }
 
-    // ✅ Submit a new comment to Firestore
+    // ✅ Submit new comment to Firestore
     commentForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         const username = document.getElementById("username").value;
@@ -63,8 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             await addDoc(collection(db, "chapters", chapter, "comments"), {
                 username,
-                text: commentText,
-                replies: []
+                text: commentText
             });
 
             commentForm.reset();
@@ -75,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // ✅ Reply to any comment (nested replies)
+    // ✅ Reply to a comment (supports unlimited nested replies)
     commentsContainer.addEventListener("click", async (e) => {
         if (e.target.classList.contains("reply-btn")) {
             const chapter = e.target.getAttribute("data-chapter");
@@ -86,23 +89,20 @@ document.addEventListener("DOMContentLoaded", () => {
             const replyText = prompt("Enter your reply:");
 
             if (replyUsername && replyText) {
-                let commentRef;
-
-                if (parentId === "null") {
-                    // Replying to a top-level comment
-                    commentRef = doc(db, "chapters", chapter, "comments", commentId);
-                } else {
-                    // Replying to a reply
-                    commentRef = doc(db, "chapters", chapter, "comments", parentId);
-                }
-
                 try {
-                    await updateDoc(commentRef, {
-                        replies: arrayUnion({
-                            username: replyUsername,
-                            text: replyText,
-                            replies: [] // Allows further nesting
-                        })
+                    let replyPath;
+
+                    if (parentId === "null") {
+                        // Replying to a top-level comment
+                        replyPath = collection(db, "chapters", chapter, "comments", commentId, "replies");
+                    } else {
+                        // Replying to a reply (nested reply)
+                        replyPath = collection(db, "chapters", chapter, "comments", parentId, "replies", commentId, "replies");
+                    }
+
+                    await addDoc(replyPath, {
+                        username: replyUsername,
+                        text: replyText
                     });
 
                     fetchComments(chapter); // Refresh comments after replying
@@ -115,6 +115,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ✅ Listen for real-time updates
+    chapterSelect.addEventListener("change", () => {
+        fetchComments(chapterSelect.value);
+    });
+
     onSnapshot(collection(db, "chapters", chapterSelect.value, "comments"), () => {
         fetchComments(chapterSelect.value);
     });
