@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     min-height: 80vh;
-    background-color: #f4f4f4;
+    background-color: #E9DCB3;
     padding: 20px;
 }
 
@@ -68,4 +68,14 @@ button {
 
 button:hover {
     background-color: #0056b3;
+}
+
+iframe {
+    width: 100%;
+    max-width: 700px;
+    height: 800px;
+    border: none;
+    display: block;
+    margin: 0 auto;
+    background-color: #E9DCB3;
 }
