@@ -50,8 +50,9 @@ nav ul li a:hover {
 }
 
 .book img {
-    width: 100%;
-    height: auto;
+    width: 180px; /* Fixed width */
+    height: 250px; /* Fixed height */
+    object-fit: cover; /* Ensures images maintain aspect ratio */
     border-radius: 5px;
 }
 
