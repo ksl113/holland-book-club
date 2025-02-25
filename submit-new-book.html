@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit a Book Recommendation</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/submit.css">
 </head>
 <body>
     <header>
@@ -16,20 +17,28 @@
                 <li><a href="calendar.html">Calendar</a></li>
                 <li><a href="book-discussions.html">Chapter Discussions</a></li>
                 <li><a href="vote.html">Vote for Our Next Read</a></li>
-                 <li><a href="past-reads.html">See Past Reads</a></li>
-            </ul>
+                <li><a href="past-reads.html">See Past Reads</a></li>
             </ul>
         </nav>
     </header>
     
     <section id="submit">
-        <h2>Submit a Book for Consideration</h2>
-        <form id="submit-book-form">
-            <input type="text" id="book-title" placeholder="Book Title" required>
-            <input type="text" id="book-author" placeholder="Author" required>
-            <textarea id="book-reason" placeholder="Why should we read this?" required></textarea>
-            <button type="submit">Submit</button>
-        </form>
+        <div class="form-container">
+            <h2>Submit a Book for Consideration</h2>
+            <p>Have a book in mind? Let us know why you think it should be our next read!</p>
+            <form id="submit-book-form">
+                <label for="book-title">Book Title</label>
+                <input type="text" id="book-title" placeholder="Enter book title" required>
+                
+                <label for="book-author">Author</label>
+                <input type="text" id="book-author" placeholder="Enter author's name" required>
+                
+                <label for="book-reason">Why should we read this?</label>
+                <textarea id="book-reason" placeholder="Share your thoughts..." required></textarea>
+                
+                <button type="submit">📚 Submit Recommendation</button>
+            </form>
+        </div>
     </section>
     
     <script src="script.js"></script>
