@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     let formattedDate = `${year}-${(month + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`;
                     let isToday = date === currentDate ? "today" : "";
-                    let eventText = events[formattedDate] ? `<div class='event' title='${events[formattedDate]}'>⭐</div>` : "";
+                    let eventText = events[formattedDate] ? `<div class='event' title='${events[formattedDate]}'>📘</div>` : "";
                     calendarHTML += `<td class='${isToday}'>${date}${eventText}</td>`;
                     date++;
                 }
