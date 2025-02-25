@@ -36,7 +36,15 @@ button:hover {
     margin: 15px auto;
     font-size: 12px;
     padding: 6px 12px;
-    background-color: #8B0000;
+    background-color: #A9A9A9; /* Grey color */
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#clear-comments:hover {
+    background-color: #808080; /* Darker grey on hover */
 }
 
 .comment {
