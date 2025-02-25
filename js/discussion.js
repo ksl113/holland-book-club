@@ -12,12 +12,26 @@ document.addEventListener("DOMContentLoaded", () => {
         commentsContainer.innerHTML = "";
         if (!commentsByChapter[chapter]) return;
 
-        commentsByChapter[chapter].forEach((comment) => {
+        commentsByChapter[chapter].forEach((comment, index) => {
             const commentDiv = document.createElement("div");
             commentDiv.classList.add("comment");
             commentDiv.innerHTML = `
                 <strong>${comment.username}</strong>: ${comment.text}
+                <button class="reply-btn" data-chapter="${chapter}" data-index="${index}">Reply</button>
+                <div class="replies"></div>
             `;
+
+            // Add replies
+            const repliesDiv = commentDiv.querySelector(".replies");
+            if (comment.replies) {
+                comment.replies.forEach(reply => {
+                    const replyDiv = document.createElement("div");
+                    replyDiv.classList.add("reply");
+                    replyDiv.innerHTML = `<strong>${reply.username}</strong>: ${reply.text}`;
+                    repliesDiv.appendChild(replyDiv);
+                });
+            }
+
             commentsContainer.appendChild(commentDiv);
         });
     }
@@ -32,11 +46,26 @@ document.addEventListener("DOMContentLoaded", () => {
             commentsByChapter[chapter] = [];
         }
 
-        commentsByChapter[chapter].push({ username, text: commentText });
+        commentsByChapter[chapter].push({ username, text: commentText, replies: [] });
         localStorage.setItem("commentsByChapter", JSON.stringify(commentsByChapter));
 
         renderComments(chapter);
         commentForm.reset();
+    });
+
+    commentsContainer.addEventListener("click", (e) => {
+        if (e.target.classList.contains("reply-btn")) {
+            const chapter = e.target.getAttribute("data-chapter");
+            const index = e.target.getAttribute("data-index");
+            const replyUsername = prompt("Enter your name:");
+            const replyText = prompt("Enter your reply:");
+
+            if (replyUsername && replyText) {
+                commentsByChapter[chapter][index].replies.push({ username: replyUsername, text: replyText });
+                localStorage.setItem("commentsByChapter", JSON.stringify(commentsByChapter));
+                renderComments(chapter);
+            }
+        }
     });
 
     clearCommentsButton.addEventListener("click", () => {
