@@ -6,53 +6,59 @@ document.addEventListener("DOMContentLoaded", () => {
     const commentsContainer = document.getElementById("comments-container");
     const chapterSelect = document.getElementById("chapter-select");
 
-    // ✅ Fetch comments and display them
-    async function fetchComments(chapter) {
+    // ✅ Fetch and listen for changes to comments in real-time
+    function fetchComments(chapter) {
         commentsContainer.innerHTML = "<p>Loading comments...</p>";
 
-        try {
-            const querySnapshot = await getDocs(collection(db, "chapters", chapter, "comments"));
-            commentsContainer.innerHTML = ""; // Clear loading text
+        const commentsRef = collection(db, "chapters", chapter, "comments");
 
-            querySnapshot.forEach(async (doc) => {
+        // Live listener for comments
+        onSnapshot(commentsRef, (snapshot) => {
+            commentsContainer.innerHTML = ""; // Clear old comments
+
+            snapshot.forEach((doc) => {
                 const commentData = doc.data();
-                const commentDiv = await createCommentElement(commentData, chapter, doc.id);
+                const commentDiv = createCommentElement(commentData, chapter, doc.id);
                 commentsContainer.appendChild(commentDiv);
-            });
 
-        } catch (error) {
-            console.error("❌ Error fetching comments:", error);
-        }
+                // Load replies for this comment in real-time
+                fetchReplies(chapter, doc.id, commentDiv.querySelector(".replies"));
+            });
+        });
     }
 
-    // ✅ Function to create a comment element and fetch replies dynamically
-    async function createCommentElement(comment, chapter, commentId, parentId = null) {
+    // ✅ Fetch replies in real-time (supports unlimited nesting)
+    function fetchReplies(chapter, commentId, repliesContainer) {
+        const repliesRef = collection(db, "chapters", chapter, "comments", commentId, "replies");
+
+        onSnapshot(repliesRef, (snapshot) => {
+            repliesContainer.innerHTML = ""; // Clear old replies
+
+            snapshot.forEach((doc) => {
+                const replyData = doc.data();
+                const replyDiv = createCommentElement(replyData, chapter, doc.id);
+                repliesContainer.appendChild(replyDiv);
+
+                // Load nested replies in real-time
+                fetchReplies(chapter, doc.id, replyDiv.querySelector(".replies"));
+            });
+        });
+    }
+
+    // ✅ Create a comment element with a reply button
+    function createCommentElement(comment, chapter, commentId) {
         const commentDiv = document.createElement("div");
         commentDiv.classList.add("comment");
         commentDiv.innerHTML = `
             <strong>${comment.username}</strong>: ${comment.text}
-            <button class="reply-btn" data-chapter="${chapter}" data-id="${commentId}" data-parent="${parentId}">Reply</button>
+            <button class="reply-btn" data-chapter="${chapter}" data-id="${commentId}">Reply</button>
             <div class="replies"></div>
         `;
-
-        const repliesDiv = commentDiv.querySelector(".replies");
-
-        // Fetch replies dynamically from Firestore (instead of using an array)
-        try {
-            const repliesSnapshot = await getDocs(collection(db, "chapters", chapter, "comments", commentId, "replies"));
-            repliesSnapshot.forEach(async (replyDoc) => {
-                const replyData = replyDoc.data();
-                const replyDiv = await createCommentElement(replyData, chapter, replyDoc.id, commentId);
-                repliesDiv.appendChild(replyDiv);
-            });
-        } catch (error) {
-            console.error("❌ Error fetching replies:", error);
-        }
 
         return commentDiv;
     }
 
-    // ✅ Submit new comment to Firestore
+    // ✅ Submit a new comment to Firestore
     commentForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         const username = document.getElementById("username").value;
@@ -71,41 +77,27 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             commentForm.reset();
-            fetchComments(chapter);
 
         } catch (error) {
             console.error("❌ Error adding comment:", error);
         }
     });
 
-    // ✅ Reply to a comment (supports unlimited nested replies)
+    // ✅ Reply to any comment (supports unlimited nesting)
     commentsContainer.addEventListener("click", async (e) => {
         if (e.target.classList.contains("reply-btn")) {
             const chapter = e.target.getAttribute("data-chapter");
             const commentId = e.target.getAttribute("data-id");
-            const parentId = e.target.getAttribute("data-parent");
 
             const replyUsername = prompt("Enter your name:");
             const replyText = prompt("Enter your reply:");
 
             if (replyUsername && replyText) {
                 try {
-                    let replyPath;
-
-                    if (parentId === "null") {
-                        // Replying to a top-level comment
-                        replyPath = collection(db, "chapters", chapter, "comments", commentId, "replies");
-                    } else {
-                        // Replying to a reply (nested reply)
-                        replyPath = collection(db, "chapters", chapter, "comments", parentId, "replies", commentId, "replies");
-                    }
-
-                    await addDoc(replyPath, {
+                    await addDoc(collection(db, "chapters", chapter, "comments", commentId, "replies"), {
                         username: replyUsername,
                         text: replyText
                     });
-
-                    fetchComments(chapter); // Refresh comments after replying
 
                 } catch (error) {
                     console.error("❌ Error adding reply:", error);
@@ -114,16 +106,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // ✅ Listen for real-time updates
+    // ✅ Load comments when the selected chapter changes
     chapterSelect.addEventListener("change", () => {
-        fetchComments(chapterSelect.value);
-    });
-
-    onSnapshot(collection(db, "chapters", chapterSelect.value, "comments"), () => {
         fetchComments(chapterSelect.value);
     });
 
     // ✅ Load initial comments
     fetchComments(chapterSelect.value);
 });
-
