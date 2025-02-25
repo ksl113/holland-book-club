@@ -61,6 +61,12 @@ nav ul li a:hover {
     font-size: 16px;
 }
 
+.stars {
+    font-size: 20px; /* Make stars bigger */
+    margin-top: 5px;
+    color: #FFD700; /* Gold star color */
+}
+
 .book:hover {
     transform: scale(1.05);
 }
