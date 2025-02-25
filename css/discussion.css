@@ -17,9 +17,9 @@
 }
 
 button {
-    width: 95%;
-    padding: 12px;
-    font-size: 18px;
+    width: auto;
+    padding: 8px 15px;
+    font-size: 14px;
     border-radius: 5px;
     background-color: #DD6E42;
     color: white;
@@ -29,6 +29,14 @@ button {
 
 button:hover {
     background-color: #C0D6DF;
+}
+
+#clear-comments {
+    display: block;
+    margin: 15px auto;
+    font-size: 12px;
+    padding: 6px 12px;
+    background-color: #8B0000;
 }
 
 .comment {
@@ -47,11 +55,11 @@ button:hover {
 }
 
 .reply-btn {
-    margin-left: 10px;
+    font-size: 12px;
+    padding: 4px 10px;
     background-color: #4F6D7A;
     color: white;
     border: none;
-    padding: 5px;
     cursor: pointer;
     border-radius: 5px;
 }
