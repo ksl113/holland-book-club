@@ -7,13 +7,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const chapterSelect = document.getElementById("chapter-select");
     const clearCommentsButton = document.getElementById("clear-comments");
 
-    // ✅ Fetch comments when the page loads
+    // ✅ Fetch comments and display them
     async function fetchComments(chapter) {
         commentsContainer.innerHTML = "<p>Loading comments...</p>";
-        
+
         try {
             const querySnapshot = await getDocs(collection(db, "chapters", chapter, "comments"));
-            commentsContainer.innerHTML = ""; // Clear loading text
+            commentsContainer.innerHTML = "";
 
             querySnapshot.forEach((doc) => {
                 const commentData = doc.data();
@@ -26,20 +26,29 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // ✅ Function to create comment elements
-    function createCommentElement(comment, chapter, commentId) {
+    // ✅ Function to create a comment element (supports nested replies)
+    function createCommentElement(comment, chapter, commentId, parentId = null) {
         const commentDiv = document.createElement("div");
         commentDiv.classList.add("comment");
         commentDiv.innerHTML = `
             <strong>${comment.username}</strong>: ${comment.text}
-            <button class="reply-btn" data-chapter="${chapter}" data-id="${commentId}">Reply</button>
+            <button class="reply-btn" data-chapter="${chapter}" data-id="${commentId}" data-parent="${parentId}">Reply</button>
             <div class="replies"></div>
         `;
+
+        const repliesDiv = commentDiv.querySelector(".replies");
+
+        if (comment.replies && comment.replies.length > 0) {
+            comment.replies.forEach((reply, index) => {
+                const replyDiv = createCommentElement(reply, chapter, `${commentId}-${index}`, commentId);
+                repliesDiv.appendChild(replyDiv);
+            });
+        }
 
         return commentDiv;
     }
 
-    // ✅ Submit new comment to Firestore
+    // ✅ Submit a new comment to Firestore
     commentForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         const username = document.getElementById("username").value;
@@ -59,28 +68,45 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             commentForm.reset();
-            fetchComments(chapter); // Refresh comments after submitting
+            fetchComments(chapter);
+
         } catch (error) {
             console.error("❌ Error adding comment:", error);
         }
     });
 
-    // ✅ Reply to a comment
+    // ✅ Reply to any comment (nested replies)
     commentsContainer.addEventListener("click", async (e) => {
         if (e.target.classList.contains("reply-btn")) {
             const chapter = e.target.getAttribute("data-chapter");
             const commentId = e.target.getAttribute("data-id");
+            const parentId = e.target.getAttribute("data-parent");
+
             const replyUsername = prompt("Enter your name:");
             const replyText = prompt("Enter your reply:");
 
             if (replyUsername && replyText) {
+                let commentRef;
+
+                if (parentId === "null") {
+                    // Replying to a top-level comment
+                    commentRef = doc(db, "chapters", chapter, "comments", commentId);
+                } else {
+                    // Replying to a reply
+                    commentRef = doc(db, "chapters", chapter, "comments", parentId);
+                }
+
                 try {
-                    const commentRef = doc(db, "chapters", chapter, "comments", commentId);
                     await updateDoc(commentRef, {
-                        replies: arrayUnion({ username: replyUsername, text: replyText })
+                        replies: arrayUnion({
+                            username: replyUsername,
+                            text: replyText,
+                            replies: [] // Allows further nesting
+                        })
                     });
 
-                    fetchComments(chapter); // Refresh comments
+                    fetchComments(chapter); // Refresh comments after replying
+
                 } catch (error) {
                     console.error("❌ Error adding reply:", error);
                 }
@@ -96,3 +122,4 @@ document.addEventListener("DOMContentLoaded", () => {
     // ✅ Load initial comments
     fetchComments(chapterSelect.value);
 });
+
