@@ -1,11 +1,9 @@
-// discussion.js
 document.addEventListener("DOMContentLoaded", () => {
     const commentForm = document.getElementById("comment-form");
     const commentsContainer = document.getElementById("comments-container");
     const chapterSelect = document.getElementById("chapter-select");
     const clearCommentsButton = document.getElementById("clear-comments");
 
-    // Load existing comments from local storage
     let commentsByChapter = JSON.parse(localStorage.getItem("commentsByChapter")) || {};
 
     function renderComments(chapter) {
@@ -13,27 +11,29 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!commentsByChapter[chapter]) return;
 
         commentsByChapter[chapter].forEach((comment, index) => {
-            const commentDiv = document.createElement("div");
-            commentDiv.classList.add("comment");
-            commentDiv.innerHTML = `
-                <strong>${comment.username}</strong>: ${comment.text}
-                <button class="reply-btn" data-chapter="${chapter}" data-index="${index}">Reply</button>
-                <div class="replies"></div>
-            `;
-
-            // Add replies
-            const repliesDiv = commentDiv.querySelector(".replies");
-            if (comment.replies) {
-                comment.replies.forEach(reply => {
-                    const replyDiv = document.createElement("div");
-                    replyDiv.classList.add("reply");
-                    replyDiv.innerHTML = `<strong>${reply.username}</strong>: ${reply.text}`;
-                    repliesDiv.appendChild(replyDiv);
-                });
-            }
-
+            const commentDiv = createCommentElement(comment, chapter, index);
             commentsContainer.appendChild(commentDiv);
         });
+    }
+
+    function createCommentElement(comment, chapter, index, parentIndex = null) {
+        const commentDiv = document.createElement("div");
+        commentDiv.classList.add("comment");
+        commentDiv.innerHTML = `
+            <strong>${comment.username}</strong>: ${comment.text}
+            <button class="reply-btn" data-chapter="${chapter}" data-index="${index}" data-parent="${parentIndex}">Reply</button>
+            <div class="replies"></div>
+        `;
+
+        const repliesDiv = commentDiv.querySelector(".replies");
+        if (comment.replies) {
+            comment.replies.forEach((reply, replyIndex) => {
+                const replyDiv = createCommentElement(reply, chapter, replyIndex, index);
+                repliesDiv.appendChild(replyDiv);
+            });
+        }
+
+        return commentDiv;
     }
 
     commentForm.addEventListener("submit", (e) => {
@@ -57,11 +57,18 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.target.classList.contains("reply-btn")) {
             const chapter = e.target.getAttribute("data-chapter");
             const index = e.target.getAttribute("data-index");
+            const parentIndex = e.target.getAttribute("data-parent");
             const replyUsername = prompt("Enter your name:");
             const replyText = prompt("Enter your reply:");
 
             if (replyUsername && replyText) {
-                commentsByChapter[chapter][index].replies.push({ username: replyUsername, text: replyText });
+                let targetArray = commentsByChapter[chapter];
+
+                if (parentIndex !== "null") {
+                    targetArray = commentsByChapter[chapter][parentIndex].replies;
+                }
+
+                targetArray[index].replies.push({ username: replyUsername, text: replyText, replies: [] });
                 localStorage.setItem("commentsByChapter", JSON.stringify(commentsByChapter));
                 renderComments(chapter);
             }
