@@ -22,8 +22,13 @@ nav ul li {
 }
 
 nav ul li a {
-    color: white;
+    color: #4A6C79 !important; /* Ensure this overrides other styles */
     text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: #2F4858; /* Darker blue on hover for better contrast */
 }
 
 #gallery {
