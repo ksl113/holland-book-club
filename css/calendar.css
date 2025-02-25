@@ -1,45 +1,47 @@
-/* Chapter Selection */
-#chapter-select, #username, #comment {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #4F6D7A;
-}
-
-/* Comment Section */
-.comment {
-    background-color: #fff;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Clear Comments Button */
-.clear-btn {
-    background-color: #888; /* Gray color */
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    font-size: 12px;
-    cursor: pointer;
-    border-radius: 5px;
-    display: block;
-    margin: 20px auto 0; /* More spacing from submit button */
-    width: fit-content;
+/* Calendar Styles */
+#calendar-container {
+    background: #E8DAB2;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
     text-align: center;
 }
 
-.clear-btn:hover {
-    background-color: #666; /* Darker gray on hover */
+.calendar {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
 }
 
-/* Ensure input fields match the chapter select dropdown width */
-#comment-form input, #comment-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
+.calendar th, .calendar td {
     border: 1px solid #4F6D7A;
+    padding: 10px;
+    text-align: center;
+    width: 14.28%;
+    height: 80px;
+    vertical-align: middle;
+    position: relative;
+    overflow: hidden;
+}
+
+.calendar th {
+    background-color: #4F6D7A;
+    color: #E8DAB2;
+}
+
+.today {
+    background-color: #C0D6DF !important;
+    font-weight: bold;
+}
+
+.event {
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    color: #DD6E42;
 }
