@@ -79,3 +79,36 @@ iframe {
     margin: 0 auto;
     background-color: #E9DCB3;
 }
+
+/* 🔥 FIX: Prevent Side Scrolling on Mobile */
+html, body {
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+    width: 100%;
+}
+
+/* Ensure form container and elements stay within screen */
+.form-container, form {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+input, textarea, button {
+    max-width: 100%;
+}
+
+/* 🔥 Mobile Optimization */
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+        margin: 0;
+    }
+
+    .form-container {
+        width: 100%;
+        padding: 0 10px; /* Prevents touching screen edges */
+    }
+
+    input, textarea, button {
+        width: 100%; /* Ensures all elements fit */
+    }
+}
