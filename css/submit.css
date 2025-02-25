@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     min-height: 80vh;
-    background-color: #E9DCB3;
+    background-color: #FFFCE8;
     padding: 20px;
 }
 
@@ -77,7 +77,7 @@ iframe {
     border: none;
     display: block;
     margin: 0 auto;
-    background-color: #E9DCB3;
+    background-color: #FFFCE8;
 }
 
 /* 🔥 FIX: Prevent Side Scrolling on Mobile */
