@@ -1,6 +1,6 @@
 /* Calendar Styles */
 #calendar-container {
-    background: #E8DAB2;
+    background: #FFFCE8;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -28,7 +28,7 @@
 
 .calendar th {
     background-color: #4F6D7A;
-    color: #E8DAB2;
+    color: #FFFCE8;
 }
 
 .today {
