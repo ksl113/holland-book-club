@@ -1,24 +1,35 @@
-import { db } from "js/firebase-config.js";
-import { collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
-
+// Ensure Firebase is loaded globally (No need for imports)
 document.addEventListener("DOMContentLoaded", async () => {
+    // Ensure Firestore is initialized
+    const db = firebase.firestore();
+    
     const reviewsList = document.getElementById("reviews-list");
     const reviewForm = document.getElementById("review-form");
 
     // Fetch reviews from Firestore
     async function loadReviews() {
         reviewsList.innerHTML = "<p>Loading reviews...</p>";
-        const reviewsSnapshot = await getDocs(collection(db, "reviews", bookTitle, "user-reviews"));
-        
-        reviewsList.innerHTML = ""; // Clear loading text
 
-        reviewsSnapshot.forEach(doc => {
-            const review = doc.data();
-            const reviewItem = document.createElement("div");
-            reviewItem.classList.add("review");
-            reviewItem.innerHTML = `<strong>${review.username}</strong>: ⭐${"⭐".repeat(review.rating)}<br>${review.text}`;
-            reviewsList.appendChild(reviewItem);
-        });
+        try {
+            const reviewsSnapshot = await db.collection("reviews").doc(bookTitle).collection("user-reviews").get();
+            
+            reviewsList.innerHTML = ""; // Clear loading text
+
+            if (reviewsSnapshot.empty) {
+                reviewsList.innerHTML = "<p>No reviews yet. Be the first to review!</p>";
+            }
+
+            reviewsSnapshot.forEach(doc => {
+                const review = doc.data();
+                const reviewItem = document.createElement("div");
+                reviewItem.classList.add("review");
+                reviewItem.innerHTML = `<strong>${review.username}</strong>: ⭐${"⭐".repeat(review.rating)}<br>${review.text}`;
+                reviewsList.appendChild(reviewItem);
+            });
+        } catch (error) {
+            console.error("Error loading reviews:", error);
+            reviewsList.innerHTML = "<p>Error loading reviews. Please try again later.</p>";
+        }
     }
 
     // Handle review submission
@@ -35,7 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         try {
-            await addDoc(collection(db, "reviews", bookTitle, "user-reviews"), {
+            await db.collection("reviews").doc(bookTitle).collection("user-reviews").add({
                 username,
                 rating: parseInt(rating),
                 text: reviewText
@@ -45,9 +56,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             loadReviews(); // Refresh the list
         } catch (error) {
             console.error("Error adding review:", error);
+            alert("Error submitting review. Please try again.");
         }
     });
 
     // Load reviews when page loads
     loadReviews();
 });
+
