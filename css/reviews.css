@@ -48,6 +48,10 @@
     max-width: 800px; /* Matches all sections */
     margin: 20px auto;
     text-align: center;
+    overflow: hidden; /* Prevents overflow issues */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .review-form-section h3 {
@@ -57,14 +61,32 @@
 #review-form {
     max-width: 500px;
     margin: auto;
+    width: 100%;
+    padding: 0 10px; /* Add padding to prevent content from touching edges */
 }
 
-input, textarea {
-    width: 100%;
+/* Fix input and textarea overflow on mobile */
+#review-form input,
+#review-form textarea {
+    width: calc(100% - 20px); /* Ensure it fits within the form */
+    max-width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
+    box-sizing: border-box; /* Prevents overflow */
+}
+
+/* Fix spacing for mobile screens */
+@media screen and (max-width: 600px) {
+    .review-form-section {
+        padding: 10px;
+    }
+
+    #review-form input,
+    #review-form textarea {
+        width: 100%;
+    }
 }
 
 button {
@@ -124,6 +146,17 @@ button:hover {
     max-width: 800px; /* Matches all sections */
     margin: auto;
     text-align: center;
+}
+
+/* Ensure review stars are gold */
+.reviews-section .review {
+    font-size: 18px; /* Adjust size if needed */
+    color: #FFD700; /* Gold stars */
+}
+
+/* Ensure individual review stars are gold */
+.reviews-section .review strong {
+    color: #4F6D7A; /* Keep usernames in the normal text color */
 }
 
 .reviews-section h3 {
