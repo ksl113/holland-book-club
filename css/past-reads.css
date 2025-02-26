@@ -99,3 +99,9 @@ nav ul li a:hover {
     transform: scale(1.05);
     cursor: pointer;
 }
+
+.average-rating {
+    font-size: 18px;
+    color: #FFD700; /* Gold stars */
+    margin-top: 5px;
+}
