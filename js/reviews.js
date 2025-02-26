@@ -28,43 +28,51 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // Fetch and display reviews from Firestore
     async function loadReviews() {
-        reviewsList.innerHTML = "<p>Loading reviews...</p>";
-        let totalRating = 0;
-        let reviewCount = 0;
+    reviewsList.innerHTML = "<p>Loading reviews...</p>";
+    let totalRating = 0;
+    let reviewCount = 0;
 
-        try {
-            const reviewsSnapshot = await getDocs(collection(db, "reviews", bookTitle, "user-reviews"));
-            reviewsList.innerHTML = ""; // Clear loading text
+    try {
+        const reviewsSnapshot = await getDocs(collection(db, "reviews", bookTitle, "user-reviews"));
+        reviewsList.innerHTML = ""; // Clear loading text
 
-            if (reviewsSnapshot.empty) {
-                reviewsList.innerHTML = "<p>No reviews yet. Be the first to review!</p>";
-                averageRatingElement.innerHTML = "No ratings yet";
-                return;
+        if (reviewsSnapshot.empty) {
+            reviewsList.innerHTML = "<p>No reviews yet. Be the first to review!</p>";
+            averageRatingElement.innerHTML = "No ratings yet";
+            return;
+        }
+
+        reviewsSnapshot.forEach(doc => {
+            const review = doc.data();
+            const ratingValue = Number(review.rating); // Ensure the rating is treated as a number
+
+            const reviewItem = document.createElement("div");
+            reviewItem.classList.add("review");
+
+            // Generate stars for the review rating
+            let stars = "";
+            for (let i = 1; i <= 5; i++) {
+                stars += i <= ratingValue ? "★" : "☆"; // Fill stars correctly
             }
 
-            reviewsSnapshot.forEach(doc => {
-                const review = doc.data();
-                const reviewItem = document.createElement("div");
-                reviewItem.classList.add("review");
-                reviewItem.innerHTML = `<strong>${review.username}</strong>: ⭐${"⭐".repeat(review.rating)}<br>${review.text}`;
-                reviewsList.appendChild(reviewItem);
+            reviewItem.innerHTML = `<strong>${review.username}</strong>: ${stars}<br>${review.text}`;
+            reviewsList.appendChild(reviewItem);
 
-                totalRating += review.rating;
-                reviewCount++;
-            });
+            totalRating += ratingValue;
+            reviewCount++;
+        });
 
-            // Calculate average rating
-            const averageRating = totalRating / reviewCount;
-            displayAverageRating(averageRating);
+        // Calculate and display the average rating
+        const averageRating = totalRating / reviewCount;
+        displayAverageRating(averageRating);
 
-        } catch (error) {
-            console.error("Error loading reviews:", error);
-            reviewsList.innerHTML = "<p>Error loading reviews. Please try again later.</p>";
-            averageRatingElement.innerHTML = "Error loading rating";
-        }
+    } catch (error) {
+        console.error("Error loading reviews:", error);
+        reviewsList.innerHTML = "<p>Error loading reviews. Please try again later.</p>";
+        averageRatingElement.innerHTML = "Error loading rating";
     }
+}
 
     // Function to display the average rating with stars
     function displayAverageRating(avg) {
