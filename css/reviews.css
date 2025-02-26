@@ -1,30 +1,60 @@
-/* Book Info Section */
-#book-info {
-    text-align: center;
-    background-color: #FFFCE8;
+/* Review Page Styling */
+.review-container {
+    max-width: 800px;
+    margin: auto;
+    background: #E8DAB2;
     padding: 20px;
     border-radius: 10px;
-    margin: 20px auto;
-    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Book Info Section */
+.book-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    background: #C0D6DF;
+    padding: 15px;
+    border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#book-cover {
-    width: 180px;
+.book-info img {
+    width: 150px;
     height: auto;
-    border-radius: 10px;
+    border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.book-details h2 {
+    margin: 0;
+    color: #4F6D7A;
+}
+
+.average-rating {
+    font-size: 18px;
+    font-weight: bold;
+    color: #DD6E42;
 }
 
 /* Review Form */
-#review-form {
-    background: white;
-    padding: 20px;
+.review-form-section {
+    background: #FFFCE8;
+    padding: 15px;
     border-radius: 10px;
-    max-width: 500px;
-    margin: 20px auto;
-    text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.review-form-section h3 {
+    color: #4F6D7A;
+}
+
+#review-form {
+    max-width: 500px;
+    margin: auto;
 }
 
 input, textarea {
@@ -43,28 +73,19 @@ button {
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    transition: background 0.3s;
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
-/* Reviews Section */
-#reviews-section {
-    max-width: 600px;
-    margin: 20px auto;
-    text-align: left;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
 /* Star Rating */
 .star-rating {
     display: flex;
-    justify-content: center;
     gap: 5px;
+    flex-direction: row-reverse; /* Align stars from right to left */
+    justify-content: center;
 }
 
 .star-rating input {
@@ -74,4 +95,22 @@ button:hover {
 .star-rating label {
     font-size: 24px;
     cursor: pointer;
+    transition: color 0.3s;
 }
+
+.star-rating input:checked ~ label {
+    color: #FFD700;
+}
+
+/* Reviews Section */
+.reviews-section {
+    background: #FFFCE8;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: auto;
+}
+
+.reviews-section h3 {
+    colo
