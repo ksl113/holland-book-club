@@ -1,6 +1,6 @@
-// Import Firestore from the shared firebase-config.js file
-import { db } from "../js/firebase-config.js";  
-import { collection, addDoc, getDocs, onSnapshot, doc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+// Import Firestore from firebase-config.js
+import { db } from "../js/firebase-config.js";
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const books = document.querySelectorAll(".book");
@@ -12,9 +12,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!bookTitle || !ratingContainer) return;
 
         try {
+            console.log(`Fetching reviews for: ${bookTitle}`); // Debugging log
+
             const reviewsSnapshot = await getDocs(collection(db, "reviews", bookTitle, "user-reviews"));
 
             if (reviewsSnapshot.empty) {
+                console.log(`No ratings found for: ${bookTitle}`);
                 ratingContainer.innerHTML = "No ratings yet";
                 return;
             }
@@ -23,11 +26,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             let reviewCount = 0;
 
             reviewsSnapshot.forEach(doc => {
+                console.log(`Review Data for ${bookTitle}:`, doc.data()); // Debugging log
                 totalRating += Number(doc.data().rating);
                 reviewCount++;
             });
 
-            const averageRating = (totalRating / reviewCount).toFixed(1); // Round to 1 decimal place
+            const averageRating = (totalRating / reviewCount).toFixed(1);
 
             // Generate stars based on average rating
             let stars = "";
