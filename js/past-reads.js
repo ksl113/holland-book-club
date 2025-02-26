@@ -1,5 +1,5 @@
 // Import Firestore from the shared firebase-config.js file
-import { db } from "./firebase-config.js";  
+import { db } from "js/firebase-config.js";  
 import { collection, addDoc, getDocs, onSnapshot, doc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
