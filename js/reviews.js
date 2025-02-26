@@ -9,13 +9,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let selectedRating = 0; // Stores the selected star rating
 
-    // Get the book title from the global `window` object (set in HTML)
-const bookTitle = window.bookTitle || "Unknown Book"; 
-
-if (bookTitle === "Unknown Book") {
-    console.error("⚠️ Error: Book title is not set. Make sure it's defined in the HTML.");
-}
-
     // Ensure star selection updates correctly
     document.querySelectorAll('.star-rating input').forEach(star => {
         star.addEventListener('change', (event) => {
