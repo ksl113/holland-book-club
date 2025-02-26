@@ -148,17 +148,6 @@ button:hover {
     text-align: center;
 }
 
-/* Ensure review stars are gold */
-.reviews-section .review {
-    font-size: 18px; /* Adjust size if needed */
-    color: #FFD700; /* Gold stars */
-}
-
-/* Ensure individual review stars are gold */
-.reviews-section .review strong {
-    color: #4F6D7A; /* Keep usernames in the normal text color */
-}
-
 .reviews-section h3 {
     color: #4F6D7A;
 }
