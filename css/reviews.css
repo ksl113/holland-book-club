@@ -85,23 +85,34 @@ button:hover {
 /* Star Rating */
 .star-rating {
     display: flex;
-    gap: 5px;
     flex-direction: row-reverse; /* Align stars from right to left */
     justify-content: center;
+    gap: 5px;
+    font-size: 24px;
 }
 
 .star-rating input {
-    display: none;
+    display: none; /* Hide radio buttons */
 }
 
 .star-rating label {
-    font-size: 24px;
+    color: #bbb; /* Default: Grey outlined stars */
     cursor: pointer;
     transition: color 0.3s;
 }
 
-.star-rating input:checked ~ label {
-    color: #FFD700;
+.star-rating label::before {
+    content: "☆"; /* Outlined star */
+}
+
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #FFD700; /* Filled stars */
+}
+
+.star-rating input:checked ~ label::before {
+    content: "★"; /* Filled star */
 }
 
 /* Reviews Section */
