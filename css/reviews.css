@@ -1,6 +1,6 @@
 /* Review Page Styling */
 .review-container {
-    max-width: 800px;
+    max-width: 800px; /* Ensures all sections have the same width */
     margin: auto;
     background: #E8DAB2;
     padding: 20px;
@@ -13,11 +13,12 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    margin-bottom: 20px;
     background: #C0D6DF;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 800px; /* Matches the review-container width */
+    margin: auto;
 }
 
 .book-info img {
@@ -35,7 +36,7 @@
 .average-rating {
     font-size: 18px;
     font-weight: bold;
-    color: #4F6D7A;
+    color: #DD6E42;
 }
 
 /* Review Form */
@@ -44,7 +45,8 @@
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    max-width: 800px; /* Matches all sections */
+    margin: 20px auto;
     text-align: center;
 }
 
@@ -108,8 +110,23 @@ button:hover {
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    max-width: 800px; /* Matches all sections */
     margin: auto;
+    text-align: center;
+}
+
+.reviews-section h3 {
+    color: #4F6D7A;
+}
+
+/* Individual Review Styling */
+.review {
+    background: #FFF;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
 }
 
 .reviews-section h3 {
