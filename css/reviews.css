@@ -122,4 +122,57 @@ button:hover {
 }
 
 .star-rating label {
-    color: #bbb; /* Default: G
+    color: #bbb; /* Default: Grey outlined stars */
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.star-rating label::before {
+    content: "☆"; /* Outlined star */
+}
+
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #FFD700; /* Filled stars */
+}
+
+.star-rating input:checked ~ label::before {
+    content: "★"; /* Filled star */
+}
+
+/* Reviews Section */
+.reviews-section {
+    background: #FFFCE8;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 800px; /* Matches all sections */
+    margin: auto;
+    text-align: center;
+}
+
+/* Ensure review stars are gold */
+.reviews-section .review {
+    font-size: 18px; /* Adjust size if needed */
+    color: #FFD700; /* Gold stars */
+}
+
+/* Ensure individual review stars are gold */
+.reviews-section .review strong {
+    color: #4F6D7A; /* Keep usernames in the normal text color */
+}
+
+.reviews-section h3 {
+    color: #4F6D7A;
+}
+
+/* Individual Review Styling */
+.review {
+    background: #FFF;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
