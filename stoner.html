@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review: Stoner by John Williams</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reviews.css">
+</head>
+<body>
+    <header>
+        <h1>Review: Stoner by John Williams</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="book-discussions.html">Chapter Discussions</a></li>
+                <li><a href="submit-new-book.html">Submit a Book</a></li>
+                <li><a href="vote.html">Vote for Our Next Read</a></li>
+                <li><a href="past-reads.html">Past Reads</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="book-info">
+        <img src="stoner.jpg" alt="Stoner Book Cover" id="book-cover">
+        <h2>Stoner by John Williams</h2>
+        <div id="average-rating">Average Rating: ⭐⭐⭐⭐⭐ (Loading...)</div>
+    </section>
+
+    <section id="review-form">
+        <h3>Leave a Review</h3>
+        <form id="review-form">
+            <input type="text" id="username" placeholder="Your Name" required>
+            <div class="star-rating">
+                <input type="radio" name="rating" id="star5" value="5"><label for="star5">⭐</label>
+                <input type="radio" name="rating" id="star4" value="4"><label for="star4">⭐</label>
+                <input type="radio" name="rating" id="star3" value="3"><label for="star3">⭐</label>
+                <input type="radio" name="rating" id="star2" value="2"><label for="star2">⭐</label>
+                <input type="radio" name="rating" id="star1" value="1"><label for="star1">⭐</label>
+            </div>
+            <textarea id="review-text" placeholder="Write your review..." required></textarea>
+            <button type="submit">Submit Review</button>
+        </form>
+    </section>
+
+    <section id="reviews-section">
+        <h3>Reviews</h3>
+        <div id="reviews-list">Loading reviews...</div>
+    </section>
+
+    <script src="js/reviews.js"></script>
+    <script>
+        // Set book title for Firebase collection
+        const bookTitle = "Stoner by John Williams";
+    </script>
+</body>
+</html>
