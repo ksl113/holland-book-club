@@ -54,10 +54,11 @@ nav ul li a:hover {
     margin: auto;
 }
 
-/* Make the entire book listing clickable */
+/* Ensure the entire book listing is clickable */
 .book-link {
-    text-decoration: none; /* Removes underline */
-    display: block; /* Ensures the entire div is clickable */
+    text-decoration: none; /* Remove underline */
+    display: block;
+    width: 100%; /* Make the link take up the full width */
 }
 
 /* Individual Book Styling */
@@ -68,15 +69,20 @@ nav ul li a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: transform 0.3s;
+    width: 100%; /* Ensure uniform width */
+    max-width: 200px; /* Prevent stretching */
+    margin: auto; /* Center all books */
 }
 
+/* Ensure images remain consistent */
 .book img {
     width: 180px; /* Fixed width */
     height: 250px; /* Fixed height */
-    object-fit: cover; /* Ensures images maintain aspect ratio */
+    object-fit: cover; /* Maintain aspect ratio */
     border-radius: 5px;
 }
 
+/* Keep text and stars consistent */
 .book h3 {
     margin-top: 10px;
     font-size: 16px;
@@ -88,7 +94,7 @@ nav ul li a:hover {
     color: #FFD700; /* Gold star color */
 }
 
-/* Hover Effect */
+/* Keep hover effect */
 .book:hover {
     transform: scale(1.05);
     cursor: pointer;
