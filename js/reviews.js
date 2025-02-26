@@ -1,8 +1,8 @@
-// Ensure Firebase is loaded globally (No need for imports)
+// Import Firestore from the shared firebase-config.js file
+import { db } from "../js/firebase-config.js";
+import { collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+
 document.addEventListener("DOMContentLoaded", async () => {
-    // Ensure Firestore is initialized
-    const db = firebase.firestore();
-    
     const reviewsList = document.getElementById("reviews-list");
     const reviewForm = document.getElementById("review-form");
 
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         reviewsList.innerHTML = "<p>Loading reviews...</p>";
 
         try {
-            const reviewsSnapshot = await db.collection("reviews").doc(bookTitle).collection("user-reviews").get();
+            const reviewsSnapshot = await getDocs(collection(db, "reviews", bookTitle, "user-reviews"));
             
             reviewsList.innerHTML = ""; // Clear loading text
 
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         try {
-            await db.collection("reviews").doc(bookTitle).collection("user-reviews").add({
+            await addDoc(collection(db, "reviews", bookTitle, "user-reviews"), {
                 username,
                 rating: parseInt(rating),
                 text: reviewText
@@ -63,4 +63,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Load reviews when page loads
     loadReviews();
 });
-
