@@ -4,26 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review: Hondo by Louis L'Amour</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/reviews.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reviews.css">
 </head>
 <body>
     <header>
         <h1>Review: Hondo by Louis L'Amour</h1>
         <nav>
             <ul>
-                <li><a href="/index.html">Home</a></li>
-                <li><a href="/calendar.html">Calendar</a></li>
-                <li><a href="/book-discussions.html">Chapter Discussions</a></li>
-                <li><a href="/submit-new-book.html">Submit a Book</a></li>
-                <li><a href="/vote.html">Vote for Our Next Read</a></li>
-                <li><a href="/past-reads.html">Past Reads</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="book-discussions.html">Chapter Discussions</a></li>
+                <li><a href="submit-new-book.html">Submit a Book</a></li>
+                <li><a href="vote.html">Vote for Our Next Read</a></li>
+                <li><a href="past-reads.html">Past Reads</a></li>
             </ul>
         </nav>
     </header>
 
     <section id="book-info">
-        <img src="/images/hondo-book-cover.jpg" alt="Hondo by Louis L'Amour Cover" id="book-cover">
+        <img src="images/hondo-book-cover.jpg" alt="Hondo by Louis L'Amour Cover" id="book-cover">
         <h2>Hondo by Louis L'Amour</h2>
         <div id="average-rating">Average Rating: ⭐⭐⭐⭐⭐ (Loading...)</div>
     </section>
@@ -49,15 +49,9 @@
         <div id="reviews-list">Loading reviews...</div>
     </section>
 
-    <!-- Load Firebase SDK -->
-    <script type="module" src="https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js"></script>
-
     <!-- Load Firebase Config -->
-    <script type="module" src="/js/firebase-config.js"></script>
-
-    <!-- Load Reviews Script -->
-    <script type="module" src="/js/reviews.js"></script>
+    <script type="module" src="js/firebase-config.js"></script>
+    <script type="module" src="js/reviews.js"></script>
 
     <script>
         // Set book title for Firestore collection
