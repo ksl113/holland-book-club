@@ -7,33 +7,28 @@ document.addEventListener("DOMContentLoaded", async () => {
     const reviewForm = document.getElementById("review-form");
     const averageRatingElement = document.getElementById("average-rating");
 
-    // Fetch reviews from Firestore
-    async function loadReviews() {
-        reviewsList.innerHTML = "<p>Loading reviews...</p>";
+    let selectedRating = 0; // Stores the selected star rating
 
-        try {
-            const reviewsSnapshot = await getDocs(collection(db, "reviews", bookTitle, "user-reviews"));
-            
-            reviewsList.innerHTML = ""; // Clear loading text
+    // Ensure star selection updates correctly
+    document.querySelectorAll('.star-rating input').forEach(star => {
+        star.addEventListener('change', (event) => {
+            selectedRating = parseInt(event.target.value);
+            updateStarDisplay(selectedRating);
+        });
+    });
 
-            if (reviewsSnapshot.empty) {
-                reviewsList.innerHTML = "<p>No reviews yet. Be the first to review!</p>";
+    // Function to update the visual star display on click
+    function updateStarDisplay(rating) {
+        document.querySelectorAll('.star-rating label').forEach((label, index) => {
+            if (5 - index <= rating) {
+                label.style.color = "#FFD700"; // Filled star
+            } else {
+                label.style.color = "#bbb"; // Empty star
             }
-
-            reviewsSnapshot.forEach(doc => {
-                const review = doc.data();
-                const reviewItem = document.createElement("div");
-                reviewItem.classList.add("review");
-                reviewItem.innerHTML = `<strong>${review.username}</strong>: ⭐${"⭐".repeat(review.rating)}<br>${review.text}`;
-                reviewsList.appendChild(reviewItem);
-            });
-        } catch (error) {
-            console.error("Error loading reviews:", error);
-            reviewsList.innerHTML = "<p>Error loading reviews. Please try again later.</p>";
-        }
+        });
     }
 
-  // Function to fetch and display reviews
+    // Fetch and display reviews from Firestore
     async function loadReviews() {
         reviewsList.innerHTML = "<p>Loading reviews...</p>";
         let totalRating = 0;
@@ -82,16 +77,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         averageRatingElement.innerHTML = `${stars} (${roundedAvg})`; // Display stars + number
     }
-    
+
     // Handle review submission
     reviewForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const username = document.getElementById("username").value;
-        const rating = document.querySelector('input[name="rating"]:checked')?.value;
         const reviewText = document.getElementById("review-text").value;
 
-        if (!username || !rating || !reviewText) {
+        if (!username || selectedRating === 0 || !reviewText) {
             alert("Please fill in all fields.");
             return;
         }
@@ -99,12 +93,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         try {
             await addDoc(collection(db, "reviews", bookTitle, "user-reviews"), {
                 username,
-                rating: parseInt(rating),
+                rating: selectedRating,
                 text: reviewText
             });
 
             reviewForm.reset();
-            loadReviews(); // Refresh the list
+            selectedRating = 0; // Reset the stored rating after submission
+            updateStarDisplay(0); // Reset the star display
+            loadReviews(); // Refresh the reviews list
 
         } catch (error) {
             console.error("Error adding review:", error);
