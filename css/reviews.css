@@ -1,4 +1,4 @@
-/* Review Page Styling */
+/* Review Page Styling */ 
 .review-container {
     max-width: 800px; /* Ensures all sections have the same width */
     margin: auto;
@@ -42,7 +42,7 @@
 /* Review Form */
 .review-form-section {
     background: #FFFCE8;
-    padding: 15px;
+    padding: 20px; /* Increased padding to match review entries */
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     max-width: 800px; /* Matches all sections */
@@ -58,11 +58,15 @@
     color: #4F6D7A;
 }
 
+/* Ensure form fields align with review content */
 #review-form {
-    max-width: 500px;
-    margin: auto;
-    width: 100%;
-    padding: 0 10px; /* Add padding to prevent content from touching edges */
+    width: 90%; /* Ensures padding inside the form */
+    max-width: 600px; /* Matches the width of the reviews */
+    padding: 15px; /* Increased padding for better spacing */
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 /* Fix input and textarea overflow on mobile */
@@ -70,22 +74,22 @@
 #review-form textarea {
     width: calc(100% - 20px); /* Ensure it fits within the form */
     max-width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
     box-sizing: border-box; /* Prevents overflow */
+    margin-bottom: 10px; /* Ensure spacing between fields */
 }
 
 /* Fix spacing for mobile screens */
 @media screen and (max-width: 600px) {
     .review-form-section {
-        padding: 10px;
+        padding: 15px;
     }
 
-    #review-form input,
-    #review-form textarea {
-        width: 100%;
+    #review-form {
+        width: 95%; /* Slightly reduce width to ensure spacing on mobile */
     }
 }
 
@@ -118,49 +122,4 @@ button:hover {
 }
 
 .star-rating label {
-    color: #bbb; /* Default: Grey outlined stars */
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.star-rating label::before {
-    content: "☆"; /* Outlined star */
-}
-
-.star-rating input:checked ~ label,
-.star-rating label:hover,
-.star-rating label:hover ~ label {
-    color: #FFD700; /* Filled stars */
-}
-
-.star-rating input:checked ~ label::before {
-    content: "★"; /* Filled star */
-}
-
-/* Reviews Section */
-.reviews-section {
-    background: #FFFCE8;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 800px; /* Matches all sections */
-    margin: auto;
-    text-align: center;
-}
-
-.reviews-section h3 {
-    color: #4F6D7A;
-}
-
-/* Individual Review Styling */
-.review {
-    background: #FFF;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: left;
-}
-
-.reviews-section h3 {
-    colo
+    color: #bbb; /* Default: G
