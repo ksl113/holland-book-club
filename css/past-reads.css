@@ -1,34 +1,61 @@
-/* Past Reads Page Styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
+/* Ensure Navigation is Responsive */
+nav {
     text-align: center;
-}
-
-header {
-    background-color: #4F6D7A;
-    padding: 20px;
-    color: white;
+    padding: 10px 0;
 }
 
 nav ul {
     list-style: none;
     padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
+/* Style for Desktop Navigation */
 nav ul li {
-    display: inline;
-    margin: 0 10px;
+    margin: 5px 15px;
+    display: inline-block;
 }
 
 nav ul li a {
-    color: #4A6C79 !important; /* Ensure this overrides other styles */
+    font-size: 18px; /* Ensure consistent font size */
+    padding: 10px 15px;
     text-decoration: none;
     font-weight: bold;
+    background-color: #E8DAB2; /* Background color for buttons */
+    border-radius: 5px;
+    color: #4A6C79 !important; /* Ensure text color is consistent */
+    transition: background 0.3s ease-in-out;
+    display: inline-block;
 }
 
 nav ul li a:hover {
-    color: #2F4858; /* Darker blue on hover for better contrast */
+    background-color: #DD6E42; /* Hover effect */
+    color: white;
+}
+
+/* 🔥 Mobile Navigation Fix */
+@media screen and (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        display: block;
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    nav ul li a {
+        display: block;
+        width: 90%;
+        padding: 12px;
+        font-size: 16px; /* Adjust font size for better fit */
+        text-align: center;
+    }
 }
 
 #gallery {
