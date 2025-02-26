@@ -44,6 +44,7 @@ nav ul li a:hover {
     color: white;
 }
 
+/* Book Gallery */
 #gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -53,6 +54,13 @@ nav ul li a:hover {
     margin: auto;
 }
 
+/* Make the entire book listing clickable */
+.book-link {
+    text-decoration: none; /* Removes underline */
+    display: block; /* Ensures the entire div is clickable */
+}
+
+/* Individual Book Styling */
 .book {
     background-color: white;
     padding: 15px;
@@ -80,6 +88,8 @@ nav ul li a:hover {
     color: #FFD700; /* Gold star color */
 }
 
+/* Hover Effect */
 .book:hover {
     transform: scale(1.05);
+    cursor: pointer;
 }
