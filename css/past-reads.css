@@ -91,7 +91,7 @@ nav ul li a:hover {
 .stars {
     font-size: 20px; /* Make stars bigger */
     margin-top: 5px;
-    color: #FFD700; /* Gold star color */
+    color: #4A6C79; /* Gold star color */
 }
 
 /* Keep hover effect */
@@ -102,6 +102,6 @@ nav ul li a:hover {
 
 .average-rating {
     font-size: 18px;
-    color: #FFD700; /* Gold stars */
+    color: #4A6C79; /* Gold stars */
     margin-top: 5px;
 }
