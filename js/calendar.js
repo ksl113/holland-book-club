@@ -12,8 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const daysInMonth = new Date(year, month + 1, 0).getDate();
         
         const events = {
-            "2025-02-16": "First Meeting - Discuss Chapters 1-13",
-            "2025-02-28": "Second Meeting - Discuss Chapters 14-22",
+            "2025-03-22": "Final Meeting - Discuss Full Book",
         };
         
         let calendarHTML = `<table class='calendar'>`;
