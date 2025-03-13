@@ -1,5 +1,5 @@
 import { db } from "./firebase-config.js";  
-import { collection, addDoc, getDocs, onSnapshot, doc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+import { collection, addDoc, getDocs, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const commentForm = document.getElementById("comment-form");
@@ -30,11 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // ✅ Fetch and listen for changes to comments in real-time
+    // ✅ Fetch and listen for changes to comments in real-time, sorted by timestamp
     function fetchComments(chapter) {
         commentsContainer.innerHTML = "<p>Loading comments...</p>";
 
-        const commentsRef = collection(db, "chapters", chapter, "comments");
+        const commentsRef = query(collection(db, "chapters", chapter, "comments"), orderBy("timestamp"));
 
         onSnapshot(commentsRef, (snapshot) => {
             commentsContainer.innerHTML = ""; // Clear old comments
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ✅ Fetch replies in real-time (supports unlimited nesting)
     function fetchReplies(chapter, commentId, repliesContainer) {
-        const repliesRef = collection(db, "chapters", chapter, "comments", commentId, "replies");
+        const repliesRef = query(collection(db, "chapters", chapter, "comments", commentId, "replies"), orderBy("timestamp"));
 
         onSnapshot(repliesRef, (snapshot) => {
             repliesContainer.innerHTML = ""; // Clear old replies
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return commentDiv;
     }
 
-    // ✅ Submit a new comment to Firestore
+    // ✅ Submit a new comment to Firestore with timestamp
     commentForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         const username = document.getElementById("username").value;
@@ -99,7 +99,8 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             await addDoc(collection(db, "chapters", chapter, "comments"), {
                 username,
-                text: commentText
+                text: commentText,
+                timestamp: new Date() // ✅ Add timestamp for ordering
             });
 
             commentForm.reset();
@@ -123,7 +124,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 try {
                     await addDoc(collection(db, "chapters", chapter, "comments", commentId, "replies"), {
                         username: replyUsername,
-                        text: replyText
+                        text: replyText,
+                        timestamp: new Date() // ✅ Add timestamp to replies
                     });
 
                 } catch (error) {
@@ -142,3 +144,4 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchComments(chapterSelect.value);
     updateChapterDropdownCounts();
 });
+
