@@ -12,10 +12,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const chapter = option.value;
             const commentsRef = collection(db, "chapters", chapter, "comments");
 
-            // Get real-time comment count
             onSnapshot(commentsRef, (snapshot) => {
                 const commentCount = snapshot.size; // Number of comments in Firestore
-                option.textContent = `Chapter ${chapter.split('-')[1]} (${commentCount})`;
+                
+                // ✅ Ensure the text remains "Chapter X (X)"
+                const chapterNumber = chapter.replace("chapter-", ""); 
+                option.textContent = `Chapter ${chapterNumber} (${commentCount})`;
             });
         }
     }
