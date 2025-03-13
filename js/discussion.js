@@ -6,13 +6,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const commentsContainer = document.getElementById("comments-container");
     const chapterSelect = document.getElementById("chapter-select");
 
+    // ✅ Function to update chapter dropdown counts
+    async function updateChapterDropdownCounts() {
+        for (let option of chapterSelect.options) {
+            const chapter = option.value;
+            const commentsRef = collection(db, "chapters", chapter, "comments");
+
+            // Get real-time comment count
+            onSnapshot(commentsRef, (snapshot) => {
+                const commentCount = snapshot.size; // Number of comments in Firestore
+                option.textContent = `Chapter ${chapter.split('-')[1]} (${commentCount})`;
+            });
+        }
+    }
+
     // ✅ Fetch and listen for changes to comments in real-time
     function fetchComments(chapter) {
         commentsContainer.innerHTML = "<p>Loading comments...</p>";
 
         const commentsRef = collection(db, "chapters", chapter, "comments");
 
-        // Live listener for comments
         onSnapshot(commentsRef, (snapshot) => {
             commentsContainer.innerHTML = ""; // Clear old comments
 
@@ -24,6 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Load replies for this comment in real-time
                 fetchReplies(chapter, doc.id, commentDiv.querySelector(".replies"));
             });
+
+            // ✅ Update dropdown count when comments change
+            updateChapterDropdownCounts();
         });
     }
 
@@ -77,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             commentForm.reset();
+            updateChapterDropdownCounts(); // ✅ Update dropdown counts
 
         } catch (error) {
             console.error("❌ Error adding comment:", error);
@@ -111,6 +128,8 @@ document.addEventListener("DOMContentLoaded", () => {
         fetchComments(chapterSelect.value);
     });
 
-    // ✅ Load initial comments
+    // ✅ Load initial comments and update dropdown counts
     fetchComments(chapterSelect.value);
+    updateChapterDropdownCounts();
 });
+
