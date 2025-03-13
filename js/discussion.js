@@ -6,14 +6,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const commentsContainer = document.getElementById("comments-container");
     const chapterSelect = document.getElementById("chapter-select");
 
-    // ✅ Function to update chapter dropdown counts
+    // ✅ Function to update chapter dropdown counts, including replies
     async function updateChapterDropdownCounts() {
         for (let option of chapterSelect.options) {
             const chapter = option.value;
             const commentsRef = collection(db, "chapters", chapter, "comments");
 
-            onSnapshot(commentsRef, (snapshot) => {
-                const commentCount = snapshot.size; // Number of comments in Firestore
+            onSnapshot(commentsRef, async (snapshot) => {
+                let commentCount = snapshot.size; // Number of comments in Firestore
+                
+                // Count replies for all comments in the chapter
+                for (const commentDoc of snapshot.docs) {
+                    const commentId = commentDoc.id;
+                    const repliesRef = collection(db, "chapters", chapter, "comments", commentId, "replies");
+                    const repliesSnapshot = await getDocs(repliesRef);
+                    commentCount += repliesSnapshot.size; // Add replies count
+                }
                 
                 // ✅ Ensure the text remains "Chapter X (X)"
                 const chapterNumber = chapter.replace("chapter-", ""); 
@@ -134,4 +142,3 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchComments(chapterSelect.value);
     updateChapterDropdownCounts();
 });
-
