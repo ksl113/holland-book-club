@@ -29,50 +29,50 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     async function loadReviews() {
-    reviewsList.innerHTML = "<p>Loading reviews...</p>";
-    let totalRating = 0;
-    let reviewCount = 0;
+        reviewsList.innerHTML = "<p>Loading reviews...</p>";
+        let totalRating = 0;
+        let reviewCount = 0;
 
-    try {
-        const reviewsSnapshot = await getDocs(collection(db, "reviews", bookTitle, "user-reviews"));
-        reviewsList.innerHTML = ""; // Clear loading text
+        try {
+            const reviewsSnapshot = await getDocs(collection(db, "reviews", bookTitle, "user-reviews"));
+            reviewsList.innerHTML = ""; // Clear loading text
 
-        if (reviewsSnapshot.empty) {
-            reviewsList.innerHTML = "<p>No reviews yet. Be the first to review!</p>";
-            averageRatingElement.innerHTML = "No ratings yet";
-            return;
-        }
-
-        reviewsSnapshot.forEach(doc => {
-            const review = doc.data();
-            const ratingValue = Number(review.rating); // Ensure the rating is treated as a number
-
-            const reviewItem = document.createElement("div");
-            reviewItem.classList.add("review");
-
-            // Generate stars for the review rating
-            let stars = "";
-            for (let i = 1; i <= 5; i++) {
-                stars += i <= ratingValue ? "★" : "☆"; // Fill stars correctly
+            if (reviewsSnapshot.empty) {
+                reviewsList.innerHTML = "<p>No reviews yet. Be the first to review!</p>";
+                averageRatingElement.innerHTML = "No ratings yet";
+                return;
             }
 
-            reviewItem.innerHTML = `<strong>${review.username}</strong>: ${stars}<br>${review.text}`;
-            reviewsList.appendChild(reviewItem);
+            reviewsSnapshot.forEach(doc => {
+                const review = doc.data();
+                const ratingValue = Number(review.rating); // Ensure the rating is treated as a number
 
-            totalRating += ratingValue;
-            reviewCount++;
-        });
+                const reviewItem = document.createElement("div");
+                reviewItem.classList.add("review");
 
-        // Calculate and display the average rating
-        const averageRating = totalRating / reviewCount;
-        displayAverageRating(averageRating);
+                // Generate stars for the review rating
+                let stars = "";
+                for (let i = 1; i <= 5; i++) {
+                    stars += i <= ratingValue ? "★" : "☆"; // Fill stars correctly
+                }
 
-    } catch (error) {
-        console.error("Error loading reviews:", error);
-        reviewsList.innerHTML = "<p>Error loading reviews. Please try again later.</p>";
-        averageRatingElement.innerHTML = "Error loading rating";
+                reviewItem.innerHTML = `<strong>${review.username}</strong>: ${stars}<br>${review.text}`;
+                reviewsList.appendChild(reviewItem);
+
+                totalRating += ratingValue;
+                reviewCount++;
+            });
+
+            // Calculate and display the average rating
+            const averageRating = totalRating / reviewCount;
+            displayAverageRating(averageRating);
+
+        } catch (error) {
+            console.error("Error loading reviews:", error);
+            reviewsList.innerHTML = "<p>Error loading reviews. Please try again later.</p>";
+            averageRatingElement.innerHTML = "Error loading rating";
+        }
     }
-}
 
     // Function to display the average rating with stars
     function displayAverageRating(avg) {
@@ -102,8 +102,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             await addDoc(collection(db, "reviews", bookTitle, "user-reviews"), {
                 username,
                 rating: selectedRating,
-                text: reviewText
-                timestamp: new Date()
+                text: reviewText,
+                timestamp: new Date() // ✅ Correctly added timestamp field
             });
 
             reviewForm.reset();
@@ -120,3 +120,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Load reviews when page loads
     loadReviews();
 });
+
