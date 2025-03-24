@@ -103,6 +103,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 username,
                 rating: selectedRating,
                 text: reviewText
+                timestamp: new Date()
             });
 
             reviewForm.reset();
